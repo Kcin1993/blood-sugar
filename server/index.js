@@ -94,7 +94,7 @@ app.post('/update/:id', (req, res) => {
 
 app.get('/delete/:id', (req, res) => {
   const id = req.params.id;
-  Records.findOneAndRemove(id, (err, record) => {
+  Records.findByIdAndRemove(id, (err, record) => {
     if (err) {
       res.send({
         status: 'fail',
