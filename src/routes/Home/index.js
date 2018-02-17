@@ -15,14 +15,9 @@ const TableSmallHint = styled.small`
   color: rgba(55, 55, 55, 0.9);
 `;
 
-const CenterTableCell = styled.span`
-  text-align: center;
-  display: block;
-`;
-
 const AddRecordBtnWrap = styled.div`
   position: fixed;
-  bottom: 40px;
+  bottom: 20px;
   right: 20px;
 `;
 
@@ -32,11 +27,17 @@ const TabContainer = styled.div`
 
 const TabWrap = styled.div`
   flex: 0 1 100%;
-  padding: 20px;
+  padding: 0;
+  overflow-x: scroll;
+  .tab {
+    min-width: 1350px;
+    margin-right: 20px;
+  }
 `;
 
 const HomeWrap = styled.div`
   min-height: 100vh;
+  padding: 20px;
   background: linear-gradient(
     45deg,
     rgba(255, 87, 136, 1) 0%,
@@ -51,7 +52,7 @@ const panes = (records, deleteRec) => [
   {
     menuItem: '血糖紀錄',
     render: () => (
-      <Tab.Pane attached={false}>
+      <Tab.Pane>
         {R.equals(records, []) ? (
           <div style={{ padding: '50px 0' }}>
             <Loader active size="medium">
@@ -59,7 +60,7 @@ const panes = (records, deleteRec) => [
             </Loader>
           </div>
         ) : (
-          <Table celled>
+          <Table celled fixed unstackable size="small" className="tableWrap">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>日期</Table.HeaderCell>
@@ -115,15 +116,13 @@ const panes = (records, deleteRec) => [
                   <Table.Cell>{rec.time_4}</Table.Cell>
                   <Table.Cell>{rec.note}</Table.Cell>
                   <Table.Cell>
-                    <CenterTableCell>
-                      <DataPostModal createMode={false} rec={rec} />
-                      <Button
-                        negative
-                        icon="delete"
-                        size="mini"
-                        onClick={() => deleteRec(rec._id)}
-                      />
-                    </CenterTableCell>
+                    <DataPostModal createMode={false} rec={rec} />
+                    <Button
+                      negative
+                      icon="delete"
+                      size="mini"
+                      onClick={() => deleteRec(rec._id)}
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))}
@@ -136,7 +135,7 @@ const panes = (records, deleteRec) => [
   {
     menuItem: '資料視覺化',
     render: () => (
-      <Tab.Pane attached={false}>
+      <Tab.Pane>
         <TabContainer>
           <i>開發中</i>
         </TabContainer>
